@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Gallery = require('../models/Gallery');
+const Gallery = require('../models/gallery');
 
 // GET all gallery images
 router.get('/', async (req, res) => {
