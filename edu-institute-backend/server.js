@@ -48,6 +48,10 @@ app.use('/api/awards', awardRoutes);
 
 app.use('/api/admin', require('./routes/admin'));
 
+const uploadRoute = require('./routes/upload');
+app.use('/api', uploadRoute);
+
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
