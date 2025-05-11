@@ -1,0 +1,98 @@
+/* Testimonials Section Styling */
+.testimonials-section {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.testimonials-slider .testimonial-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonials-slider .testimonial-card:hover {
+  transform: scale(1.05);
+}
+
+.testimonial-image {
+  margin-right: 20px;
+}
+
+.testimonial-image img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.testimonial-content {
+  max-width: 500px;
+}
+
+.testimonial-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.testimonial-content .position {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.testimonial-content .feedback {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Slick Carousel Custom Styling */
+.slick-dots {
+  bottom: -40px;
+}
+
+.slick-prev,
+.slick-next {
+  display: none; /* Hides the previous and next arrows */
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  color: #4caf50;
+}
+
+.slick-dots li button:before {
+  color: #4caf50; /* Green color for dots */
+  font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #2196F3; /* Blue color for the active dot */
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 30px 10px;
+  }
+
+  .testimonial-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .testimonial-content .position {
+    font-size: 0.9rem;
+  }
+}

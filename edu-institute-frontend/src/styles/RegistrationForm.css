@@ -1,0 +1,57 @@
+.registration-section {
+  background: #f3f7fb;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  margin: 2rem 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.registration-section h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+
+.register-form {
+  max-width: 500px;
+  margin: auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.register-form input,
+.register-form select {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.register-form button {
+  background-color: #003366;
+  color: white;
+  padding: 12px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.register-form button:hover {
+  background-color: #00509e;
+}
+
+.success-message, .error-message {
+  text-align: center;
+  font-size: 18px;
+  padding: 1rem;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}

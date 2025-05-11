@@ -1,0 +1,148 @@
+.faculty-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.faculty-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #003366;
+}
+
+.faculty-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 1rem auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.faculty-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.faculty-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.faculty-card:hover {
+  transform: scale(1.05);
+}
+
+.faculty-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.faculty-info {
+  padding: 1rem;
+}
+
+.faculty-info h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #003366;
+}
+
+.faculty-info p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.faculty-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: fadeInModal 0.3s ease-in-out;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #003366;
+}
+
+.modal-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.modal-content p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content a {
+  color: #003366;
+  text-decoration: none;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .modal-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal-close {
+    font-size: 1.5rem;
+    top: 10px;
+    right: 10px;
+  }
+}

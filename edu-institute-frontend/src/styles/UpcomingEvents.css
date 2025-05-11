@@ -1,0 +1,133 @@
+.events-section {
+  background-color: #f3f7fb;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adding a light shadow for depth */
+}
+
+.events-section h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1rem;
+  font-size: 2.5rem; /* Larger title for emphasis */
+  text-transform: uppercase; /* Making the title more striking */
+  letter-spacing: 2px; /* Adding some spacing between letters */
+}
+
+.loading-message, .error-message, .no-events-message {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-top: 2rem;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem; /* Increasing gap for more breathing space */
+  margin-top: 2rem;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out; /* Smooth transition for the container */
+}
+
+.event-card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-card:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.event-card img:hover {
+  transform: scale(1.1); /* Zoom effect on image hover */
+}
+
+.event-card h3 {
+  color: #003366;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.event-card h3:hover {
+  color: #00509e; /* Change color on hover */
+}
+
+.event-card p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.event-link {
+  color: #00509e;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.event-link:hover {
+  text-decoration: underline;
+  color: #003366; /* Change to a darker shade when hovered */
+}
+
+.event-card .event-date {
+  font-size: 1.2rem;
+  color: #999;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.event-card .event-location {
+  font-size: 1rem;
+  color: #333;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Animating the event container */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.events-container {
+  animation: slideIn 0.6s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+  .events-section h2 {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+  }
+
+  .event-card {
+    padding: 1rem;
+  }
+
+  .event-card img {
+    height: 150px; /* Smaller images on mobile */
+  }
+}

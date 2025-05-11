@@ -1,0 +1,99 @@
+.notice-board-section {
+  background-color: #f3f7fb;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.notice-board-section h2 {
+  text-align: center;
+  color: #003366;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.loading-message,
+.error-message,
+.no-notices-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 1rem;
+}
+
+.notice-board-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.25rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.notice-board-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.notice-board-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 8px;
+}
+
+.notice-card {
+  background-color: #ffffff;
+  min-width: 320px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.notice-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.notice-card h3 {
+  font-size: 1.4rem;
+  color: #003366;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
+.notice-date {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 0.8rem;
+}
+
+.notice-description {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.4;
+  margin-bottom: 1.2rem;
+  height: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notice-link {
+  align-self: flex-start;
+  margin-top: auto;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #00509e;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.notice-link:hover {
+  text-decoration: underline;
+  color: #003366;
+}

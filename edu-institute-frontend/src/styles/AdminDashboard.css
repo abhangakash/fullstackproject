@@ -1,0 +1,103 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+}
+
+/* Admin Dashboard Container */
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography */
+h1, h2 {
+  color: #333;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+/* Add Course Form */
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.course-form input,
+.course-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.course-form input:focus,
+.course-form textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.course-form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.course-form button:hover {
+  background-color: #45a049;
+}
+
+/* Course List */
+.course-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-item h3 {
+  color: #333;
+  font-size: 18px;
+}
+
+.course-item p {
+  color: #555;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #3639f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #2d32c4;
+}
