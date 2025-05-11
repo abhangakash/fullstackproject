@@ -1,9 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // ✅ Replaced bcrypt with bcryptjs
 const Admin = require('../models/Admin');
 const Application = require('../models/Application');
 const Course = require('../models/Course');
-//const bcrypt = require('bcryptjs');
 const adminAuth = require('../middleware/adminAuth');
 
 const router = express.Router();
@@ -28,14 +28,14 @@ router.get('/applications', adminAuth, async (req, res) => {
   res.json(applications);
 });
 
-// Update application status (approve or reject)
+// Update application status
 router.put('/applications/:id', adminAuth, async (req, res) => {
   const { status } = req.body;
   const application = await Application.findByIdAndUpdate(req.params.id, { status }, { new: true });
   res.json(application);
 });
 
-// Protected: Add course
+// Add course
 router.post('/courses', adminAuth, async (req, res) => {
   const { name, description, duration, price } = req.body;
   const course = new Course({ name, description, duration, price });
@@ -43,20 +43,20 @@ router.post('/courses', adminAuth, async (req, res) => {
   res.json(course);
 });
 
-// Protected: Edit course
+// Edit course
 router.put('/courses/:id', adminAuth, async (req, res) => {
   const { name, description, duration, price } = req.body;
   const course = await Course.findByIdAndUpdate(req.params.id, { name, description, duration, price }, { new: true });
   res.json(course);
 });
 
-// Protected: Delete course
+// Delete course
 router.delete('/courses/:id', adminAuth, async (req, res) => {
   const course = await Course.findByIdAndDelete(req.params.id);
   res.json({ message: 'Course deleted successfully', course });
 });
 
-// Protected: Get all courses
+// Get all courses
 router.get('/courses', adminAuth, async (req, res) => {
   const courses = await Course.find();
   res.json(courses);
