@@ -5,4 +5,6 @@ services:
     startCommand: "npm start"
     envVars:
       - key: NODE_VERSION
-        value: "16.x"  # Set Node version to 16.x
+        value: "16.x"  # Ensure we are using Node 16.x, which is compatible with Create React App
+      - key: NPM_USE
+        value: "true"  # Forces Render to use npm instead of Bun
