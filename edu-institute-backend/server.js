@@ -9,8 +9,7 @@ const app = express();
 
 // Allow specific frontend domains (e.g., Vercel/Render and localhost)
 const allowedOrigins = [
-  'http://localhost:3000', // Dev frontend
-  'https://edu-frontend-wraz.onrender.com', // Replace with your Render or Vercel frontend URL
+ 'https://edu-frontend-wraz.onrender.com', // Replace with your Render or Vercel frontend URL
 ];
 
 app.use(cors({
