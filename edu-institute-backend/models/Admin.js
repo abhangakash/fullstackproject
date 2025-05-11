@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const Application = require('../models/Application');
 const Course = require('../models/Course');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 const adminAuth = require('../middleware/adminAuth');
 
 const router = express.Router();
