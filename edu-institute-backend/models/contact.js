@@ -6,5 +6,5 @@ const contactSchema = new mongoose.Schema({
   subject: String,
   message: String
 });
-
+//add
 module.exports = mongoose.model('Contact', contactSchema);
