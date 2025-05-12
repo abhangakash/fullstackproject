@@ -11,7 +11,7 @@ const NoticeBoard = () => {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/notices'); // Update with your correct API endpoint
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/notices`); // Update with your correct API endpoint
         setNotices(res.data);
       } catch (err) {
         setError('Failed to load notices.');

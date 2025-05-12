@@ -11,7 +11,7 @@ const AwardsAchievements = () => {
   useEffect(() => {
     const fetchAwards = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/awards'); // Update with your correct API endpoint
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/awards`); // Update with your correct API endpoint
         setAwards(res.data);
       } catch (err) {
         setError('Failed to load awards and achievements.');

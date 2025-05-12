@@ -10,7 +10,7 @@ const ImageUploader = () => {
     formData.append('image', file);
 
     try {
-      const response = await fetch('https://your-backend-url.onrender.com/api/upload', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });

@@ -11,7 +11,7 @@ const UpcomingEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/events'); // Update with correct API route
+const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/events`);
         setEvents(res.data);
       } catch (err) {
         setError('Failed to load events.');

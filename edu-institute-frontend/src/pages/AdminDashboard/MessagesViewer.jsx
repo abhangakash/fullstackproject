@@ -7,7 +7,7 @@ const MessagesViewer = () => {
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/messages');
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/messages`);
       setMessages(res.data);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
@@ -16,7 +16,7 @@ const MessagesViewer = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/messages/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/messages/${id}`);
       setMessages(prev => prev.filter(msg => msg._id !== id));
     } catch (error) {
       console.error('Failed to delete message:', error);
