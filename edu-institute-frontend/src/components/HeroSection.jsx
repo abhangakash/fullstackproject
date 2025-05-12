@@ -53,9 +53,9 @@ const HeroSection = () => {
         <h1 className="hero-title">Welcome to Our Educational Institute</h1>
         <p className="hero-subtitle">Empowering the future through quality education</p>
         <div className="cta-buttons">
-          <Link to="/register" className="cta-button apply">Apply Now</Link>
-          <a href="/courses" className="cta-button explore">Explore Courses</a>
-          <a href="/gallery" className="cta-button tour">Campus Tour</a>
+         <Link to="/register" className="cta-button apply">Apply Now</Link>
+<Link to="/courses" className="cta-button explore">Explore Courses</Link>
+<Link to="/gallery" className="cta-button tour">Campus Tour</Link>
         </div>
       </div>
     </div>
