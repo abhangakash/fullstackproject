@@ -13,7 +13,7 @@ const CoursesNew = () => {
   // Fetch courses from the API when the component mounts
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/courses`)
+      .get(`${process.env.REACT_APP_API_URL}/api/courses`)
       .then((response) => {
         setCourses(response.data);
       })
