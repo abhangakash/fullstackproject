@@ -9,7 +9,7 @@ const Faculty = () => {
 
   useEffect(() => {
     // Fetching faculty data from the backend
-    axios.get("http://localhost:5000/api/faculty")
+axios.get(`${process.env.REACT_APP_API_URL}/api/faculty`)
       .then((response) => {
         setFacultyData(response.data); // Set the fetched faculty data to state
         setLoading(false);
