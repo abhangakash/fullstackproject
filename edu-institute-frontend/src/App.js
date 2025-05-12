@@ -35,8 +35,9 @@ const App = () => {
         <Route path="/faculty" element={<Faculty />} />
         <Route path="/add-faculty" element={<FacultyForm />} />
         <Route path="/login" element={<Login setToken={(t) => console.log('Token:', t)} />} />
-        <Route path="/application" component={Application} /> {/* New route */}
-        <Route path="/thank-you" component={ThankYou} /> {/* Thank you page */}
+        <Route path="/application" element={<Application />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+
         <Route path="/contact" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/gallery" element={<Gallery />} />
