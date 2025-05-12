@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const uploadRoutes = require('./routes/upload');
 
 dotenv.config(); // Load env variables from .env
 
@@ -19,6 +20,7 @@ app.use(cors({
 }));
 
 app.use(express.json()); // Parse JSON body
+app.use('/api/upload', uploadRoutes);
 
 // Simple route for testing
 app.get('/', (req, res) => {
@@ -37,7 +39,6 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/notices', require('./routes/notices'));
 app.use('/api/awards', require('./routes/awards'));
 app.use('/api/admin', require('./routes/admin'));
-app.use('/api', require('./routes/upload'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
