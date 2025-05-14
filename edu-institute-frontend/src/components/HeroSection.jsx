@@ -6,10 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "../styles/HeroSection.css";
 
 const slides = [
-  {
-    image: "https://images.unsplash.com/photo-1581090700227-1e8b64b8c27c",
-    caption: "Modern Classrooms with Smart Learning",
-  },
+  ,
   {
     image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
     caption: "Vibrant Campus Life",

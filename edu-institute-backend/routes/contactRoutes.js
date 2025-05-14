@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/adminAuth'); // Path may vary
-const Contact = require('../models/Contact'); // Replace with your actual model
+const Contact = require('../models/contact'); // Replace with your actual model
 
 router.get('/contact', adminAuth, async (req, res) => {
   try {
