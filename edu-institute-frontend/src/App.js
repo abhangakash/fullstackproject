@@ -16,6 +16,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import RegistrationForm from "./components/RegistrationForm";
+import ReactGA from 'react-ga4';
+import Analytics from './pages/Analytics';
+
 
 
 
@@ -24,11 +27,15 @@ import RegistrationForm from "./components/RegistrationForm";
 
 
 // Import other pages as needed
+ReactGA.initialize('G-L7X4E7FD4Y');
+ReactGA.send("pageview");
+
 
 const App = () => {
   return (
     <Router>
             <Navbar /> {/* ✅ Add navbar here */}
+            <Analytics />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

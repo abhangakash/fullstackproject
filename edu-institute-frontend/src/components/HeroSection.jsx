@@ -1,24 +1,39 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Add this line
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/HeroSection.css";
 
+// ✅ Import local images
+// import campusImg from "/images/img11";
+// import labsImg from "/images/img12";
+// import libraryImg from "/images/img13";
+// import libraryIm from "/images/img14";
+
 const slides = [
-  ,
+  
+
   {
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
-    caption: "Vibrant Campus Life",
+    image: "/images/img11.jpg",
+    caption: "Hon. President Shashi ji",
   },
   {
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
-    caption: "Hands-on Practical Labs",
+    image: "/images/img12.jpg",
+    caption: "It always seems impossible until it's done: Words by Shashi ji",
   },
   {
-    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad",
-    caption: "Library & Learning Resources",
+    image: "/images/img13.jpg",
+    caption: "#लाडाचे शेठ",
   },
+  {
+    image: "/images/img14.jpg",
+    caption: "The best way to predict the future is to create it : Shashi ji",
+  },
+
+
+
+
 ];
 
 const sliderSettings = {
@@ -34,13 +49,18 @@ const sliderSettings = {
   pauseOnHover: false,
 };
 
+
 const HeroSection = () => {
   return (
     <div className="hero-container">
       <Slider {...sliderSettings} className="hero-slider">
         {slides.map((slide, index) => (
           <div key={index} className="hero-slide">
-            <img src={slide.image} alt={`Slide ${index + 1}`} className="hero-slide-img" />
+            <img
+              src={slide.image}
+              alt={`Slide ${index + 1}`}
+              className="hero-slide-img"
+            />
             <div className="hero-caption">{slide.caption}</div>
           </div>
         ))}
@@ -50,9 +70,9 @@ const HeroSection = () => {
         <h1 className="hero-title">Welcome to Our Educational Institute</h1>
         <p className="hero-subtitle">Empowering the future through quality education</p>
         <div className="cta-buttons">
-         <Link to="/register" className="cta-button apply">Apply Now</Link>
-<Link to="/courses" className="cta-button explore">Explore Courses</Link>
-<Link to="/gallery" className="cta-button tour">Campus Tour</Link>
+          <Link to="/register" className="cta-button apply">Apply Now</Link>
+          <Link to="/courses" className="cta-button explore">Explore Courses</Link>
+          <Link to="/gallery" className="cta-button tour">Campus Tour</Link>
         </div>
       </div>
     </div>

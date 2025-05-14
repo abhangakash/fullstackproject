@@ -10,6 +10,7 @@ const app = express();
 
 // Allow specific frontend domains (e.g., Vercel/Render and localhost)
 const allowedOrigins = [
+  'https://www.abhang.site',
    'https://edu-frontend-wraz.onrender.com',
    'http://localhost:3000'
 ];
