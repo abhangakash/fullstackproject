@@ -15,19 +15,19 @@ const slides = [
   
 
   {
-    image: "/images/img15.jpg",
+    image: "/images/img21.jpg",
     caption: "Hon. President Shashi ji",
   },
   {
-    image: "/images/img12.jpg",
+    image: "/images/img22.jpg",
     caption: "It always seems impossible until it's done: Words by Shashi ji",
   },
   {
-    image: "/images/img13.jpg",
+    image: "/images/img23.jpg",
     caption: "#लाडाचे शेठ",
   },
   {
-    image: "/images/img14.jpg",
+    image: "/images/img15.jpg",
     caption: "The best way to predict the future is to create it : Shashi ji",
   },
 
