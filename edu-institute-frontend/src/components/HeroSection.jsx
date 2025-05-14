@@ -20,7 +20,7 @@ const slides = [
   },
   {
     image: "/images/img22.jpg",
-    caption: "It always seems impossible until it's done: Words by Shashi ji",
+    caption: "The best way to predict the future is to create it: Words by Shashi ji",
   },
   {
     image: "/images/img23.jpg",
@@ -28,7 +28,7 @@ const slides = [
   },
   {
     image: "/images/img15.jpg",
-    caption: "The best way to predict the future is to create it : Shashi ji",
+    caption: "It always seems impossible until it's done: : Shashi ji",
   },
 
 
