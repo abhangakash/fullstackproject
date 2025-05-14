@@ -15,7 +15,11 @@ const slides = [
   
 
   {
+<<<<<<< HEAD
     image: "/images/img11.jpg",
+=======
+    image: "/images/img15.jpg",
+>>>>>>> 8428db1 (google anltics added)
     caption: "Hon. President Shashi ji",
   },
   {
