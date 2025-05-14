@@ -17,15 +17,9 @@
 /* Make image responsive and centered */
 .hero-slide-img {
   width: 100%;
-<<<<<<< HEAD
   height: 100%;
   object-fit: cover; /* Ensures the image covers the container completely */
   object-position: center; /* Centers the image, preventing any unwanted cropping */
-=======
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
->>>>>>> 8428db1 (google anltics added)
 }
 
 /* Caption Styling */
@@ -33,29 +27,17 @@
   position: absolute;
   bottom: 20px;
   left: 40px;
-<<<<<<< HEAD
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)); /* Gradient for a sleek look */
   color: #fff;
   padding: 15px 25px;
   border-radius: 15px;
   font-size: 20px;
   font-weight: 600; /* Slightly bolder text for emphasis */
-=======
-  background: linear-gradient(135deg, rgba(0, 51, 102, 0.85), rgba(0, 102, 204, 0.85));
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 500;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  animation: fadeInUp 1s ease;
->>>>>>> 8428db1 (google anltics added)
   max-width: 90%;
   transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
-<<<<<<< HEAD
 .hero-caption:hover {
   transform: translateY(-10px); /* Hover effect for interactivity */
   opacity: 1; /* Full opacity on hover for emphasis */
@@ -89,9 +71,6 @@
 }
 
 
-=======
-/* Overlay Box */
->>>>>>> 8428db1 (google anltics added)
 .hero-overlay {
   position: absolute;
   top: 50%;
