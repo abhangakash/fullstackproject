@@ -15,7 +15,7 @@ const slides = [
   
 
   {
-    image: "/images/img21.jpg",
+    image: "/images/img31.jpg",
     caption: "Hon. President Shashi ji",
   },
   {
