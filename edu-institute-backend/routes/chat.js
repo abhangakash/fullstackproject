@@ -1,25 +1,32 @@
-// routes/chat.js
 const express = require("express");
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
+
 const router = express.Router();
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 router.post("/ask", async (req, res) => {
   try {
     const { message } = req.body;
-    const response = await openai.createChatCompletion({
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: message }],
+      messages: [
+        { role: "system", content: "You are a helpful assistant for a college website." },
+        { role: "user", content: message },
+      ],
     });
 
-    res.json({ reply: response.data.choices[0].message.content });
+    const reply = completion.choices[0].message.content;
+    res.json({ reply });
   } catch (error) {
-    console.error("OpenAI error:", error);
-    res.status(500).json({ error: "Something went wrong" });
+    console.error("OpenAI API Error:", error);
+    res.status(500).json({ error: "Failed to get AI response." });
   }
 });
 
