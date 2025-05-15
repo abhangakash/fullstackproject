@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../models/student'); // Mongoose model
+const Student = require('../models/Student'); // Mongoose model
 
 // POST /api/register - Register a new student
 router.post('/', async (req, res) => {
