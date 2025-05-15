@@ -7,7 +7,25 @@ import MessagesView from "./MessagesView";
 import AdminFaculty from "./AdminFaculty";
 import CourseManagement from "./CourseManagement";
 
+import { BarChart, Users, MessageSquare, BookOpen, ListChecks } from "lucide-react";
+
 import "./AdminDashboard.css";
+
+const tabLabels = {
+  departments: "Departments",
+  faculty: "Faculty",
+  courses: "Courses",
+  messages: "Messages",
+  registrations: "Registrations"
+};
+
+const icons = {
+  departments: <ListChecks size={16} />,
+  faculty: <Users size={16} />,
+  courses: <BookOpen size={16} />,
+  messages: <MessageSquare size={16} />,
+  registrations: <BarChart size={16} />
+};
 
 const AdminDashboard = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -23,13 +41,13 @@ const AdminDashboard = ({ onLogout }) => {
       <nav className="navbar">
         <div className="navbar-brand">Edu Institute Admin</div>
         <div className="nav-links">
-          {["departments", "faculty", "courses", "messages", "registrations", ].map(tab => (
+          {Object.keys(tabLabels).map(tab => (
             <a
               key={tab}
               className={`nav-link ${activeTab === tab ? "active" : ""}`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              <span className="icon">{icons[tab]}</span> {tabLabels[tab]}
             </a>
           ))}
         </div>

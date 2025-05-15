@@ -22,20 +22,22 @@ const AdminFaculty = () => {
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   useEffect(() => {
-    fetchFaculty();
-  }, []);
+    const fetchFaculty = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/faculty`);
+        setFacultyList(res.data);
+      } catch (err) {
+        setError("Failed to load faculty data.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchFaculty = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/faculty`);
-      setFacultyList(res.data);
-    } catch (err) {
-      setError("Failed to load faculty data.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchFaculty();
+  }, [API_URL]);
+
+  // rest of your code remains same
 
   const openAddModal = () => {
     setModalMode("add");
@@ -103,7 +105,9 @@ const AdminFaculty = () => {
           headers: { "Content-Type": "multipart/form-data" },
         });
       }
-      await fetchFaculty();
+      // Refetch data after submit
+      const res = await axios.get(`${API_URL}/api/faculty`);
+      setFacultyList(res.data);
       handleCloseModal();
     } catch (err) {
       alert("Error saving faculty data");
@@ -114,22 +118,20 @@ const AdminFaculty = () => {
   };
 
   const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure to delete this faculty?")) return;
+    if (!window.confirm("Are you sure to delete this faculty?")) return;
 
-  try {
-    const res = await axios.delete(`${API_URL}/api/faculty/${id}`);
-    console.log("Delete response:", res.data); // optional logging
+    try {
+      const res = await axios.delete(`${API_URL}/api/faculty/${id}`);
+      console.log("Delete response:", res.data);
 
-    // Remove the deleted faculty from the list without full refetch
-    setFacultyList((prevList) => prevList.filter((faculty) => faculty._id !== id));
+      setFacultyList((prevList) => prevList.filter((faculty) => faculty._id !== id));
 
-    // Optionally show success alert
-    alert("Faculty deleted successfully.");
-  } catch (err) {
-    console.error("Delete error:", err.response?.data || err.message);
-    alert(err.response?.data?.message || "Error deleting faculty");
-  }
-};
+      alert("Faculty deleted successfully.");
+    } catch (err) {
+      console.error("Delete error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Error deleting faculty");
+    }
+  };
 
   if (loading) return <Spinner animation="border" variant="primary" />;
   if (error) return <Alert variant="danger">{error}</Alert>;
@@ -170,7 +172,7 @@ const AdminFaculty = () => {
                 <td>{faculty.email || "-"}</td>
                 <td>
                   <img
-                    src={faculty.photo || faculty.image} // Handle both fields
+                    src={faculty.photo || faculty.image}
                     alt={faculty.name}
                     style={{ width: "60px", borderRadius: "5px" }}
                   />
@@ -198,7 +200,6 @@ const AdminFaculty = () => {
         </tbody>
       </table>
 
-      {/* Modal for Add/Edit */}
       <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>{modalMode === "add" ? "Add New Faculty" : "Edit Faculty"}</Modal.Title>
