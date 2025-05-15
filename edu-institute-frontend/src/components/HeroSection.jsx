@@ -22,10 +22,7 @@ const slides = [
     image: "/images/img22.jpg",
     caption: "The best way to predict the future is to create it: Words by Shashi ji",
   },
-  {
-    image: "/images/img23.jpg",
-    caption: "#लाडाचे शेठ",
-  },
+ 
   {
     image: "/images/img15.jpg",
     caption: "It always seems impossible until it's done: : Shashi ji",
