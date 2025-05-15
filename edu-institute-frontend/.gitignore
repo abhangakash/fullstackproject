@@ -11,10 +11,10 @@
 # production
 /build
 # Ignore backend environment file
-edu-institute-backend/.env
+.edu-institute-backend/.env
 
 # Ignore script to create admin
-edu-institute-backend/createAdmin.js
+.edu-institute-backend/createAdmin.js
 
 # misc
 .DS_Store

@@ -1,0 +1,125 @@
+
+
+.department-card {
+flex: 1 1 200px;
+max-width: 250px;
+background: #f0f8ff;
+border: 2px solid #0055aa;
+border-radius: 10px;
+padding: 1.5rem;
+cursor: pointer;
+transition: background-color 0.3s ease, box-shadow 0.3s ease;
+text-align: center;
+box-shadow: 0 0 8px rgba(0,85,170,0.2);
+}
+
+.department-card:hover {
+background-color: #e1f0ff;
+box-shadow: 0 0 15px rgba(0,85,170,0.4);
+}
+
+.department-card h2 {
+font-size: 1.75rem;
+margin-bottom: 0.5rem;
+color: #003366;
+}
+
+.department-card p {
+font-size: 1rem;
+font-weight: 500;
+}
+
+/* Popup overlay and content */
+.popup-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.6);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 999;
+overflow-y: auto;
+padding: 1rem;
+}
+
+.popup-content {
+background: white;
+max-width: 700px;
+width: 100%;
+border-radius: 12px;
+padding: 2rem 2.5rem;
+box-shadow: 0 0 20px rgba(0,0,0,0.25);
+position: relative;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+color: #003366;
+max-height: 90vh;
+overflow-y: auto;
+}
+
+.close-button {
+position: absolute;
+top: 1rem;
+right: 1.5rem;
+background: none;
+border: none;
+font-size: 2rem;
+color: #0055aa;
+cursor: pointer;
+font-weight: bold;
+transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: #fbfcfd;
+}
+
+.popup-content h2 {
+margin-top: 0;
+font-size: 2rem;
+margin-bottom: 1rem;
+color: #004080;
+}
+
+.popup-content h3 {
+margin-top: 1.5rem;
+margin-bottom: 0.8rem;
+color: #0066cc;
+}
+
+.popup-content p, .popup-content ul {
+font-size: 1rem;
+line-height: 1.5;
+color: #333;
+}
+
+.popup-content ul {
+padding-left: 1.5rem;
+}
+
+.popup-content ul li {
+margin-bottom: 0.4rem;
+}
+
+/* Images container inside popup */
+.department-images {
+margin-top: 1.5rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+}
+
+.department-images img {
+flex: 1 1 30%;
+border-radius: 8px;
+max-height: 150px;
+object-fit: cover;
+box-shadow: 0 2px 8px rgba(0,85,170,0.3);
+transition: transform 0.3s ease;
+}
+
+.department-images img:hover {
+transform: scale(1.05);
+}

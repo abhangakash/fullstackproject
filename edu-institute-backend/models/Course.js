@@ -1,4 +1,3 @@
-// models/Course.js
 const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
@@ -6,7 +5,8 @@ const courseSchema = new mongoose.Schema({
   branch: String,
   description: String,
   imageUrl: String,
-  fullDetails: String
+  imagePublicId: String,  // <-- added this
+  fullDetails: String,
 });
 
 const Course = mongoose.model("Course", courseSchema);

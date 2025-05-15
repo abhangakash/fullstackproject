@@ -15,17 +15,17 @@ const slides = [
   
 
   {
-    image: "/images/img31.jpg",
-    caption: "Hon. President Shashi ji",
+    image: "/images/img41.jpg",
+    caption: "Modern Classrooms with Smart Learning",
   },
   {
-    image: "/images/img22.jpg",
-    caption: "The best way to predict the future is to create it: Words by Shashi ji",
+    image: "/images/img42.jpg",
+    caption: "Vibrant Campus Life",
   },
  
   {
-    image: "/images/img15.jpg",
-    caption: "It always seems impossible until it's done: : Shashi ji",
+    image: "/images/img43.jpg",
+    caption: "Hands-on Practical Labs",
   },
 
 

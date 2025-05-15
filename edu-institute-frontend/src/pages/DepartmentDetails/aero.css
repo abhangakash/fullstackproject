@@ -1,0 +1,115 @@
+/* Overlay to dim background */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 51, 102, 0.95); /* Blue overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+/* Popup content box */
+.popup-content {
+  background-color: #f0f8ff;  /* light blue-white theme */
+  color: #003366;             /* dark blue text */
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: 85vh;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Close button styling */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  color: #003366;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: #fbfcfd;
+}
+
+/* Heading styles */
+.popup-content h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  border-bottom: 2px solid #003366;
+  padding-bottom: 10px;
+}
+
+.popup-content h3 {
+  margin-top: 25px;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  color: #00509e;
+}
+
+/* Paragraph and list styling */
+.popup-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.popup-content ul {
+  margin-left: 20px;
+  list-style-type: disc;
+  color: #003366;
+  font-size: 1rem;
+}
+
+.popup-content ul li {
+  margin-bottom: 8px;
+}
+
+/* Images container */
+.department-images {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* Each image style */
+.department-images img {
+  width: 32%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  object-fit: cover;
+  height: 150px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.department-images img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .department-images {
+    flex-direction: column;
+  }
+
+  .department-images img {
+    width: 100%;
+    height: auto;
+  }
+}

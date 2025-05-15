@@ -13,11 +13,16 @@ import Application from './pages/Application'; // Import the new Application com
 import ThankYou from './pages/ThankYou'; // Import ThankYou page
 import CourseDetail from './pages/CourseDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboard from './admin/AdminDashboard';
+import AdminLogin from './admin/AdminLogin';
 import RegistrationForm from "./components/RegistrationForm";
 import ReactGA from 'react-ga4';
-import Analytics from './pages/Analytics';
+import Departments from './pages/Departments';
+import CSDepartment from "./pages/DepartmentDetails/cs";
+import ITDepartment from "./pages/DepartmentDetails/it";
+import ENTCDepartment from "./pages/DepartmentDetails/entc";
+import MECHDepartment from "./pages/DepartmentDetails/mech";
+import AERODepartment from "./pages/DepartmentDetails/aero";
 
 
 
@@ -35,7 +40,6 @@ const App = () => {
   return (
     <Router>
             <Navbar /> {/* ✅ Add navbar here */}
-            <Analytics />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -49,9 +53,19 @@ const App = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/courses/:courseCode" element={<CourseDetail />} />
+         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/register" element={<RegistrationForm />} />
+         <Route path="/departments" element={<Departments />} />
+      <Route path="/departments/cs" element={<CSDepartment />} />
+            <Route path="/departments/it" element={<ITDepartment />} />
+            <Route path="/departments/entc" element={<ENTCDepartment />} />
+      <Route path="/departments/mech" element={<MECHDepartment />} />
+            <Route path="/departments/aero" element={<AERODepartment />} />
+
+
+
+
 
 
         {/* Add routes for other pages */}

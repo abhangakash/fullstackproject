@@ -33,6 +33,7 @@ const Navbar = () => {
           { to: '/courses', label: 'Courses' },
           { to: '/gallery', label: 'Gallery' },
           { to: '/contact', label: 'Contact' },
+          {to: '/departments', label:'Departments'},
         ].map((link) => (
           <li key={link.to}>
             <NavLink to={link.to} exact="true" activeClassName="active" onClick={closeMenu}>

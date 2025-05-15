@@ -8,4 +8,5 @@ const studentSchema = new mongoose.Schema({
   year: String,
 });
 
-module.exports = mongoose.model('Student', studentSchema);
+// Check if the model exists and use it; otherwise, create it
+module.exports = mongoose.models.Student || mongoose.model('Student', studentSchema);

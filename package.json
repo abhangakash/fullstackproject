@@ -2,6 +2,8 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.6",
+    "mongoose": "^8.14.3",
+    "react-csv": "^2.2.2",
     "react-slick": "^0.30.3"
   },
   "devDependencies": {

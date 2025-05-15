@@ -18,9 +18,11 @@
 .hero-slide-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the container completely */
-  object-position: center; /* Centers the image, preventing any unwanted cropping */
+  object-fit: cover; /* This will fill the container */
+  object-position: center;
 }
+
+
 
 /* Caption Styling */
 .hero-caption {

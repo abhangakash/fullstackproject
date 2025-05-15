@@ -1,57 +1,118 @@
 const express = require('express');
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
-const upload = require('../utils/uploadmiddleware'); // Multer middleware to handle file uploads
-const Course = require('../models/Course'); // Import the updated Course model
+const upload = require('../utils/uploadmiddleware'); // Multer middleware
+const Course = require('../models/Course');
 
-// Configure Cloudinary for image uploads
+// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// POST route to add a new course (with image upload)
+// POST - Add new course with image upload
 router.post('/', upload.single('image'), async (req, res) => {
   const { title, branch, description, fullDetails } = req.body;
   let imageUrl = '';
+  let imagePublicId = '';
 
   if (req.file) {
     try {
-      // Upload image to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'course_images', // Folder for storing course images in Cloudinary
+        folder: 'course_images',
       });
-      imageUrl = result.secure_url; // Get the secure URL of the uploaded image
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;  // Save public_id here
     } catch (error) {
-      return res.status(500).json({ message: 'Error uploading image to Cloudinary', error });
+      return res.status(500).json({ message: 'Error uploading image', error });
     }
   }
 
   try {
-    // Create a new course with the provided fields and uploaded image URL
     const course = new Course({
       title,
       branch,
       description,
       fullDetails,
-      imageUrl, // Save the Cloudinary image URL
+      imageUrl,
+      imagePublicId,  // Save public_id in DB
     });
 
-    await course.save(); // Save the course to MongoDB
-    res.status(201).json(course); // Return the newly created course
+    await course.save();
+    res.status(201).json(course);
   } catch (error) {
     res.status(500).json({ message: 'Error adding course', error });
   }
 });
 
-// GET route to fetch all courses
+// GET all courses
 router.get('/', async (req, res) => {
   try {
-    const courses = await Course.find(); // Fetch all courses from MongoDB
-    res.status(200).json(courses); // Return the courses as JSON
+    const courses = await Course.find();
+    res.status(200).json(courses);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching courses', error });
+  }
+});
+
+// PUT - Update course by ID (with optional new image upload)
+router.put('/:id', upload.single('image'), async (req, res) => {
+  const { title, branch, description, fullDetails } = req.body;
+  let imageUrl = '';
+  let imagePublicId = '';
+
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ message: 'Course not found' });
+
+    if (req.file) {
+      // Delete old image from Cloudinary if exists
+      if (course.imagePublicId) {
+        await cloudinary.uploader.destroy(course.imagePublicId);
+      }
+      // Upload new image
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'course_images',
+      });
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
+    }
+
+    course.title = title;
+    course.branch = branch;
+    course.description = description;
+    course.fullDetails = fullDetails;
+
+    if (imageUrl) {
+      course.imageUrl = imageUrl;
+      course.imagePublicId = imagePublicId;
+    }
+
+    await course.save();
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating course', error });
+  }
+});
+router.delete("/:id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // If you store Cloudinary public_id in the course document, delete image from Cloudinary
+    if (course.cloudinaryId) {
+      await cloudinary.uploader.destroy(course.cloudinaryId);
+    }
+
+    await course.deleteOne();
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

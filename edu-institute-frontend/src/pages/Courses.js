@@ -33,6 +33,7 @@ const CoursesNew = () => {
       <div className="filter-buttons">
         <button onClick={() => filterCourses("All")}>All</button>
         <button onClick={() => filterCourses("CS")}>Computer Science</button>
+        <button onClick={() => filterCourses("AE")}>Information Technology</button>
         <button onClick={() => filterCourses("ENTC")}>Electronics and Telecom</button>
         <button onClick={() => filterCourses("ME")}>Mechanical Engineering</button>
         <button onClick={() => filterCourses("AE")}>Aeronautical Engineering</button>
