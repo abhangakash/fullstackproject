@@ -4,6 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const uploadRoutes = require('./routes/upload');
 const departmentRoutes = require('./routes/departments');
+const chatRoutes = require('./routes/chat');
+
 
 
 
@@ -39,6 +41,8 @@ app.use('/api/awards', require('./routes/awards'));
 // app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin', require('./routes/adminAuth'));
 app.use('/api/departments', departmentRoutes);
+app.use('/api/chat', chatRoutes);
+
 
 
 

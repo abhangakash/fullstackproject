@@ -7,6 +7,7 @@ import RegistrationForm from '../components/RegistrationForm';
  import AwardsAchievements from '../components/AwardsAchievements';
  import PhotosVideosGallery from '../components/PhotosVideosGallery';
  import "../styles/Home.css";
+ import Chatbot from "../components/Chatbot"; 
 
 // import Gallery from '../components/Gallery';
 import Testimonials from '../components/Testimonials';
@@ -18,6 +19,8 @@ import Testimonials from '../components/Testimonials';
 const Home = () => {
   return (
     <div className="home-container">
+            <Chatbot />
+
       <HeroSection />
       <RegistrationForm />
       <UpcomingEvents />
@@ -26,6 +29,7 @@ const Home = () => {
       <PhotosVideosGallery />
          <Testimonials />
          <Footer />
+
 
 
       {/* 
