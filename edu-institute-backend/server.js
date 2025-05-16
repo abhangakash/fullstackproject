@@ -15,8 +15,8 @@ const app = express();
 
 // ✅ Allow specific frontend origins
 
-const allowedOrigins = [,
-  ,
+const allowedOrigins = ['https://www.abhang.site',
+  'https://edu-backend-cz0l.onrender.com',
   'http://localhost:3000']; // Add Vercel/Render if needed
 
 app.use(cors({
