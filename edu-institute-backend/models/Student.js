@@ -1,12 +1,27 @@
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
-  fullName: String,
-  email: String,
-  phone: String,
-  branch: String,
-  year: String,
-});
+  fullName: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  branch: {
+    type: String,
+    required: true
+  },
+  year: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true }); // Adds createdAt and updatedAt
 
-// Check if the model exists and use it; otherwise, create it
-module.exports = mongoose.models.Student || mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('Student', studentSchema);
