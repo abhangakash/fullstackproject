@@ -4,7 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const uploadRoutes = require('./routes/upload');
 const departmentRoutes = require('./routes/departments');
-const chatRoutes = require('./routes/chat');
+// const chatRoutes = require('./routes/chat');
 
 
 
@@ -15,8 +15,8 @@ const app = express();
 
 // ✅ Allow specific frontend origins
 
-const allowedOrigins = ['https://www.abhang.site',
-  'https://edu-backend-cz0l.onrender.com',
+const allowedOrigins = [,
+  ,
   'http://localhost:3000']; // Add Vercel/Render if needed
 
 app.use(cors({
@@ -42,7 +42,7 @@ app.use('/api/awards', require('./routes/awards'));
 // app.use('/api/admin', require('./routes/admin'));
 app.use('/api/admin', require('./routes/adminAuth'));
 app.use('/api/departments', departmentRoutes);
-app.use('/api/chat', chatRoutes);
+// app.use('/api/chat', chatRoutes);
 
 
 
