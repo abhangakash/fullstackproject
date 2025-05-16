@@ -31,8 +31,8 @@ router.post('/', async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      cc: 'admin@yourinstitute.com',     // optional
-      bcc: 'backup@yourinstitute.com',   // optional
+      // cc: 'admin@yourinstitute.com',     // optional
+      // bcc: 'backup@yourinstitute.com',   // optional
       subject: '🎓 Registration Confirmation - [Your Institute Name]',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;">
