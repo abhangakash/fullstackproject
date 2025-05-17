@@ -41,66 +41,117 @@ router.post("/", async (req, res) => {
     console.log("✅ Student Registered:", fullName);
 
     // 📧 Send Welcome Email
-   const emailSubject = "Welcome to [Edu Institute Name]!";
+const emailSubject = "🎉 Welcome to Edu Institute - Let's Get Started!";
+
 const emailBody = `
   <html>
     <head>
       <style>
         body {
-          font-family: Arial, sans-serif;
+          font-family: 'Arial', sans-serif;
           background-color: #f4f7fc;
           margin: 0;
           padding: 0;
         }
         .container {
           width: 100%;
-          max-width: 600px;
-          margin: 50px auto;
-          background-color: white;
-          padding: 30px;
-          border-radius: 8px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          max-width: 650px;
+          margin: 30px auto;
+          background-color: #ffffff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+          background-color: #3498db;
+          padding: 20px;
+          border-radius: 10px 10px 0 0;
+          text-align: center;
+        }
+        .header img {
+          max-width: 150px;
         }
         h1 {
           color: #2C3E50;
-          font-size: 2rem;
-          text-align: center;
+          font-size: 2.2rem;
+          margin-top: 20px;
         }
         p {
           font-size: 1.1rem;
           color: #333;
+          line-height: 1.6;
+        }
+        .cta-button {
+          background-color: #3498db;
+          color: white;
+          padding: 15px 25px;
+          font-size: 1.1rem;
+          text-decoration: none;
+          border-radius: 5px;
+          display: inline-block;
+          margin-top: 20px;
           text-align: center;
+        }
+        .cta-button:hover {
+          background-color: #2980b9;
+        }
+        .section-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #3498db;
+          margin-top: 30px;
+          text-align: center;
+        }
+        .info-box {
+          background-color: #ecf0f1;
+          padding: 15px;
+          border-radius: 5px;
+          margin-top: 15px;
         }
         .footer {
           font-size: 0.9rem;
           color: #7f8c8d;
           text-align: center;
-          margin-top: 20px;
+          margin-top: 30px;
         }
-        .button {
-          display: inline-block;
-          padding: 10px 20px;
-          background-color: #3498db;
-          color: white;
-          font-size: 1.1rem;
+        .footer a {
+          color: #3498db;
           text-decoration: none;
-          border-radius: 5px;
-          margin-top: 20px;
-          text-align: center;
-        }
-        .button:hover {
-          background-color: #2980b9;
         }
       </style>
     </head>
     <body>
       <div class="container">
-        <h1>Welcome to [Edu Institute Name], ${fullName}!</h1>
-        <p>Thank you for registering with us. We are excited to have you as part of our learning community.</p>
-        <p>If you have any questions or need assistance, feel free to reach out to us at any time.</p>
-        <a href="https://abhang.site" class="button">Visit Dashboard</a>
+        <div class="header">
+          <!-- Replace with your actual logo -->
+          <img src="https://abhang.site/logo512.png" alt="Edu Institute Logo">
+        </div>
+
+        <h1>Welcome, ${fullName}!</h1>
+        <p>We are thrilled to have you join us at **Edu Institute**. Thank you for registering with us!</p>
+        <p>We are committed to providing you with the best educational experience. Here’s how you can get started:</p>
+
+        <div class="section-title">What's Next?</div>
+        <div class="info-box">
+          <p>🎓 Log into your personalized student dashboard to view your courses and manage your schedule.</p>
+          <p>📚 Explore the resources available to help you succeed—check out our library and student support services.</p>
+        </div>
+
+        <a href="https://abhang.site" class="cta-button">Visit Your Dashboard</a>
+
+        <div class="section-title">Need Help?</div>
+        <div class="info-box">
+          <p>If you have any questions or need assistance, our support team is here for you!</p>
+          <p>Feel free to contact us at <a href="abhang.site/contact">Contact Us</a>.</p>
+        </div>
+
         <div class="footer">
-          <p>&copy; 2025 [Edu Institute Name], All Rights Reserved.</p>
+          <p>&copy; 2025 Edu Institute | All Rights Reserved.</p>
+          <p>Follow us on:
+            <a href="https://facebook.com/eduinstitute">Facebook</a> |
+            <a href="https://twitter.com/eduinstitute">Twitter</a> |
+            <a href="https://instagram.com/eduinstitute">Instagram</a>
+          </p>
         </div>
       </div>
     </body>
@@ -108,6 +159,8 @@ const emailBody = `
 `;
 
 const emailResult = await sendEmail(email, emailSubject, emailBody);
+
+
 
 
     if (!emailResult.success) {
