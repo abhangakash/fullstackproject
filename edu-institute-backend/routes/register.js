@@ -41,14 +41,74 @@ router.post("/", async (req, res) => {
     console.log("✅ Student Registered:", fullName);
 
     // 📧 Send Welcome Email
-    const emailSubject = "Welcome to Your Institute!";
-    const emailBody = `
-      <h1>Hello ${fullName},</h1>
-      <p>Thank you for registering at our Educational Institute.</p>
-      <p>We’re excited to have you on board!</p>
-    `;
+   const emailSubject = "Welcome to [Edu Institute Name]!";
+const emailBody = `
+  <html>
+    <head>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f7fc;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          width: 100%;
+          max-width: 600px;
+          margin: 50px auto;
+          background-color: white;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+          color: #2C3E50;
+          font-size: 2rem;
+          text-align: center;
+        }
+        p {
+          font-size: 1.1rem;
+          color: #333;
+          text-align: center;
+        }
+        .footer {
+          font-size: 0.9rem;
+          color: #7f8c8d;
+          text-align: center;
+          margin-top: 20px;
+        }
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #3498db;
+          color: white;
+          font-size: 1.1rem;
+          text-decoration: none;
+          border-radius: 5px;
+          margin-top: 20px;
+          text-align: center;
+        }
+        .button:hover {
+          background-color: #2980b9;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Welcome to [Edu Institute Name], ${fullName}!</h1>
+        <p>Thank you for registering with us. We are excited to have you as part of our learning community.</p>
+        <p>If you have any questions or need assistance, feel free to reach out to us at any time.</p>
+        <a href="https://abhang.site" class="button">Visit Dashboard</a>
+        <div class="footer">
+          <p>&copy; 2025 [Edu Institute Name], All Rights Reserved.</p>
+        </div>
+      </div>
+    </body>
+  </html>
+`;
 
-    const emailResult = await sendEmail(email, emailSubject, emailBody);
+const emailResult = await sendEmail(email, emailSubject, emailBody);
+
 
     if (!emailResult.success) {
       console.warn("❌ Email Failed:", emailResult.error);
