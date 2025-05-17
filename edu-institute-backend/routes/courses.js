@@ -1,32 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const cloudinary = require('cloudinary').v2;
-const upload = require('../utils/uploadmiddleware'); // Multer middleware
+const upload = require('../utils/s3config'); // multerS3 config
 const Course = require('../models/Course');
+const AWS = require('aws-sdk');
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
 });
 
 // POST - Add new course with image upload
 router.post('/', upload.single('image'), async (req, res) => {
   const { title, branch, description, fullDetails } = req.body;
   let imageUrl = '';
-  let imagePublicId = '';
+  let imageKey = '';
 
   if (req.file) {
-    try {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'course_images',
-      });
-      imageUrl = result.secure_url;
-      imagePublicId = result.public_id;  // Save public_id here
-    } catch (error) {
-      return res.status(500).json({ message: 'Error uploading image', error });
-    }
+    imageUrl = req.file.location;
+    imageKey = req.file.key;
   }
 
   try {
@@ -36,7 +28,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       description,
       fullDetails,
       imageUrl,
-      imagePublicId,  // Save public_id in DB
+      imageKey,
     });
 
     await course.save();
@@ -56,27 +48,25 @@ router.get('/', async (req, res) => {
   }
 });
 
-// PUT - Update course by ID (with optional new image upload)
+// PUT - Update course with optional new image upload
 router.put('/:id', upload.single('image'), async (req, res) => {
   const { title, branch, description, fullDetails } = req.body;
-  let imageUrl = '';
-  let imagePublicId = '';
 
   try {
     const course = await Course.findById(req.params.id);
     if (!course) return res.status(404).json({ message: 'Course not found' });
 
     if (req.file) {
-      // Delete old image from Cloudinary if exists
-      if (course.imagePublicId) {
-        await cloudinary.uploader.destroy(course.imagePublicId);
+      // Delete old image from S3 if exists
+      if (course.imageKey) {
+        await s3.deleteObject({
+          Bucket: process.env.S3_BUCKET_NAME,
+          Key: course.imageKey,
+        }).promise();
       }
-      // Upload new image
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'course_images',
-      });
-      imageUrl = result.secure_url;
-      imagePublicId = result.public_id;
+
+      course.imageUrl = req.file.location;
+      course.imageKey = req.file.key;
     }
 
     course.title = title;
@@ -84,35 +74,31 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     course.description = description;
     course.fullDetails = fullDetails;
 
-    if (imageUrl) {
-      course.imageUrl = imageUrl;
-      course.imagePublicId = imagePublicId;
-    }
-
     await course.save();
     res.status(200).json(course);
   } catch (error) {
     res.status(500).json({ message: 'Error updating course', error });
   }
 });
-router.delete("/:id", async (req, res) => {
+
+// DELETE - Remove course and image from S3
+router.delete('/:id', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
+    if (!course) return res.status(404).json({ message: 'Course not found' });
 
-    // If you store Cloudinary public_id in the course document, delete image from Cloudinary
-    if (course.cloudinaryId) {
-      await cloudinary.uploader.destroy(course.cloudinaryId);
+    if (course.imageKey) {
+      await s3.deleteObject({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: course.imageKey,
+      }).promise();
     }
 
     await course.deleteOne();
-
-    res.status(200).json({ message: "Course deleted successfully" });
+    res.status(200).json({ message: 'Course deleted successfully' });
   } catch (error) {
-    console.error("Delete error:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Delete error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

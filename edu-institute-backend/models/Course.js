@@ -4,8 +4,8 @@ const courseSchema = new mongoose.Schema({
   title: String,
   branch: String,
   description: String,
-  imageUrl: String,
-  imagePublicId: String,  // <-- added this
+  imageUrl: String,     // full public URL from S3
+  imageKey: String,     // key of the image in S3, e.g., "1623452345-filename.jpg"
   fullDetails: String,
 });
 

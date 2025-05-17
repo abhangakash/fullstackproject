@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Faculty = require('../models/Faculty');
-const upload = require('../utils/uploadmiddleware'); // multer + cloudinary middleware
+const upload = require('../utils/s3config'); // multer-s3 middleware (like your course code)
+const AWS = require('aws-sdk');
 
-// Route to fetch all faculty
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
+
+// GET all faculty
 router.get('/', async (req, res) => {
   try {
     const facultyList = await Faculty.find();
@@ -14,15 +21,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Route to add new faculty with image upload
+// POST - Add new faculty with image upload
 router.post('/add', upload.single('image'), async (req, res) => {
   try {
     const { name, department, designation, contactInfo, email } = req.body;
-    const photo = req.file?.path; // Cloudinary URL
+    let photoUrl = '';
+    let photoKey = '';
+
+    if (req.file) {
+      photoUrl = req.file.location;
+      photoKey = req.file.key;
+    }
 
     const newFaculty = new Faculty({
       name,
-      photo,
+      photo: photoUrl,
+      photoKey,
       department,
       designation,
       contactInfo,
@@ -36,49 +50,62 @@ router.post('/add', upload.single('image'), async (req, res) => {
     res.status(500).json({ error: 'Error saving faculty data' });
   }
 });
-router.put("/:id", upload.single("image"), async (req, res) => {
+
+// PUT - Update faculty with optional new image upload
+router.put('/:id', upload.single('image'), async (req, res) => {
   try {
     const facultyId = req.params.id;
     const { name, department, designation, contactInfo, email } = req.body;
-    const photo = req.file ? req.file.path : undefined;
 
-    const updateData = { name, department, designation, contactInfo, email };
-    if (photo) updateData.photo = photo;
+    const faculty = await Faculty.findById(facultyId);
+    if (!faculty) return res.status(404).json({ error: 'Faculty not found' });
 
-    const updatedFaculty = await Faculty.findByIdAndUpdate(facultyId, updateData, {
-      new: true,
-    });
+    // If new image uploaded, delete old one from S3
+    if (req.file) {
+      if (faculty.photoKey) {
+        await s3.deleteObject({
+          Bucket: process.env.S3_BUCKET_NAME,
+          Key: faculty.photoKey,
+        }).promise();
+      }
 
-    if (!updatedFaculty) return res.status(404).json({ error: "Faculty not found" });
+      faculty.photo = req.file.location;
+      faculty.photoKey = req.file.key;
+    }
 
-    res.status(200).json(updatedFaculty);
+    faculty.name = name;
+    faculty.department = department;
+    faculty.designation = designation;
+    faculty.contactInfo = contactInfo;
+    faculty.email = email;
+
+    await faculty.save();
+    res.status(200).json(faculty);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Error updating faculty data" });
+    res.status(500).json({ error: 'Error updating faculty data' });
   }
 });
 
-router.delete("/:id", async (req, res) => {
+// DELETE - Delete faculty and S3 image
+router.delete('/:id', async (req, res) => {
   try {
     const faculty = await Faculty.findById(req.params.id);
-    if (!faculty) {
-      return res.status(404).json({ message: "Faculty not found" });
-    }
+    if (!faculty) return res.status(404).json({ message: 'Faculty not found' });
 
-    // If you store Cloudinary public_id (e.g., faculty.cloudinaryId), delete it here:
-    if (faculty.cloudinaryId) {
-      await cloudinary.uploader.destroy(faculty.cloudinaryId);
+    if (faculty.photoKey) {
+      await s3.deleteObject({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: faculty.photoKey,
+      }).promise();
     }
 
     await faculty.deleteOne();
-
-    res.status(200).json({ message: "Faculty deleted successfully" });
+    res.status(200).json({ message: 'Faculty deleted successfully' });
   } catch (error) {
-    console.error("Delete error:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Delete error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
-
-
 
 module.exports = router;
