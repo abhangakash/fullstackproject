@@ -1,5 +1,6 @@
+// middleware/adminAuth.js
 const jwt = require('jsonwebtoken');
-const SECRET = 'your_jwt_secret';
+const SECRET = process.env.JWT_SECRET || 'fallbackSecret';
 
 const adminAuth = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];

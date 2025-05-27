@@ -17,6 +17,7 @@ const app = express();
 
 const allowedOrigins = ['https://www.abhang.site',
   'https://edu-backend-cz0l.onrender.com',
+  
   'http://localhost:3000']; // Add Vercel/Render if needed
 
 app.use(cors({
@@ -31,7 +32,7 @@ app.use(express.json());
 app.use('/api/upload', uploadRoutes);
 app.use('/api/faculty', require('./routes/faculty'));
 app.use('/api/register', require('./routes/register'));
-app.use('/api/auth', require('./routes/auth'));
+// app.use('/api/auth', require('./routes/auth'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/courses', require('./routes/courses'));
 app.use('/api/gallery', require('./routes/gallery'));

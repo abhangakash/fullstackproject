@@ -42,13 +42,13 @@ const AdminDashboard = ({ onLogout }) => {
         <div className="navbar-brand">Edu Institute Admin</div>
         <div className="nav-links">
           {Object.keys(tabLabels).map(tab => (
-            <a
+            <button
               key={tab}
               className={`nav-link ${activeTab === tab ? "active" : ""}`}
               onClick={() => setActiveTab(tab)}
             >
               <span className="icon">{icons[tab]}</span> {tabLabels[tab]}
-            </a>
+            </button>
           ))}
         </div>
         <button
