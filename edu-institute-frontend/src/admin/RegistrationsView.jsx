@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Spinner, Alert, Button, Form, Row, Col } from "react-bootstrap";
+import { Table, Spinner, Alert, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 
 const RegistrationsView = () => {
@@ -8,8 +8,6 @@ const RegistrationsView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [branchFilter, setBranchFilter] = useState("");
-  const [yearFilter, setYearFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
 
@@ -17,6 +15,7 @@ const RegistrationsView = () => {
     const fetchRegistrations = async () => {
       try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/register`);
+        if (!res.ok) throw new Error("Network response was not ok");
         const data = await res.json();
         setRegistrations(data);
         setFiltered(data);
@@ -26,10 +25,10 @@ const RegistrationsView = () => {
         setLoading(false);
       }
     };
-
     fetchRegistrations();
   }, []);
 
+  // Delete handler
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
     try {
@@ -44,32 +43,28 @@ const RegistrationsView = () => {
     }
   };
 
+  // Filter registrations on search
   useEffect(() => {
-    const applyFilters = () => {
-      let result = registrations;
+    const term = search.trim().toLowerCase();
+    if (!term) {
+      setFiltered(registrations);
+      setCurrentPage(1);
+      return;
+    }
 
-      if (search) {
-        result = result.filter(
-          (r) =>
-            r.fullName.toLowerCase().includes(search.toLowerCase()) ||
-            r.email.toLowerCase().includes(search.toLowerCase())
-        );
-      }
+    const filteredData = registrations.filter((r) => {
+      return (
+        r.name.toLowerCase().includes(term) ||
+        (r.parentName && r.parentName.toLowerCase().includes(term)) ||
+        (r.phone && r.phone.includes(term)) ||
+        (r.altPhone && r.altPhone.includes(term)) ||
+        (r.email && r.email.toLowerCase().includes(term))
+      );
+    });
 
-      if (branchFilter) {
-        result = result.filter((r) => r.branch === branchFilter);
-      }
-
-      if (yearFilter) {
-        result = result.filter((r) => r.year === yearFilter);
-      }
-
-      setFiltered(result);
-      setCurrentPage(1); 
-    };
-
-    applyFilters();
-  }, [registrations, search, branchFilter, yearFilter]);
+    setFiltered(filteredData);
+    setCurrentPage(1);
+  }, [search, registrations]);
 
   const indexOfLast = currentPage * recordsPerPage;
   const indexOfFirst = indexOfLast - recordsPerPage;
@@ -81,39 +76,15 @@ const RegistrationsView = () => {
       <h3>All Registrations</h3>
 
       <Row className="mb-3">
-        <Col md={3}>
+        <Col md={4}>
           <Form.Control
-            type="text"
-            placeholder="Search by name or email"
+            type="search"
+            placeholder="Search by name, parent, phone, or email"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </Col>
-        <Col md={2}>
-          <Form.Select
-            onChange={(e) => setBranchFilter(e.target.value)}
-            value={branchFilter}
-          >
-            <option value="">All Branches</option>
-            <option value="CSE">CSE</option>
-            <option value="IT">IT</option>
-            <option value="ENTC">ENTC</option>
-            <option value="Mechanical">Mechanical</option>
-          </Form.Select>
-        </Col>
-        <Col md={2}>
-          <Form.Select
-            onChange={(e) => setYearFilter(e.target.value)}
-            value={yearFilter}
-          >
-            <option value="">All Years</option>
-            <option value="First">First Year</option>
-            <option value="Second">Second Year</option>
-            <option value="Third">Third Year</option>
-            <option value="Final">Final Year</option>
-          </Form.Select>
-        </Col>
-        <Col md={2}>
+        <Col md={4} className="d-flex align-items-center">
           <CSVLink data={filtered} filename="registrations.csv" className="btn btn-success">
             Export CSV
           </CSVLink>
@@ -129,11 +100,18 @@ const RegistrationsView = () => {
           <Table striped bordered hover responsive>
             <thead className="table-dark">
               <tr>
-                <th>Full Name</th>
-                <th>Email</th>
+                <th>Name</th>
+                <th>Parent Name</th>
                 <th>Phone</th>
-                <th>Branch</th>
-                <th>Year</th>
+                <th>Alt Phone</th>
+                <th>Email</th>
+                <th>Class</th>
+                <th>DOB</th>
+                <th>Village</th>
+                <th>Taluka</th>
+                <th>District</th>
+                <th>Declaration</th>
+                <th>Photo</th>
                 <th>Registered At</th>
                 <th>Action</th>
               </tr>
@@ -141,18 +119,36 @@ const RegistrationsView = () => {
             <tbody>
               {currentRecords.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="text-center">
+                  <td colSpan="14" className="text-center">
                     No records found.
                   </td>
                 </tr>
               ) : (
                 currentRecords.map((reg) => (
                   <tr key={reg._id}>
-                    <td>{reg.fullName}</td>
-                    <td>{reg.email}</td>
-                    <td>{reg.phone}</td>
-                    <td>{reg.branch}</td>
-                    <td>{reg.year}</td>
+                    <td>{reg.name}</td>
+                    <td>{reg.parentName || "-"}</td>
+                    <td>{reg.phone || "-"}</td>
+                    <td>{reg.altPhone || "-"}</td>
+                    <td>{reg.email || "-"}</td>
+                    <td>{reg.studentClass || "-"}</td>
+                    <td>{reg.dob ? new Date(reg.dob).toLocaleDateString() : "-"}</td>
+                    <td>{reg.address?.village || "-"}</td>
+                    <td>{reg.address?.taluka || "-"}</td>
+                    <td>{reg.address?.district || "-"}</td>
+                    <td>{reg.declaration ? "Yes" : "No"}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {reg.profilePic ? (
+                        <Image
+                          src={`${process.env.REACT_APP_API_URL}/${reg.profilePic}`}
+                          alt="Profile Pic"
+                          thumbnail
+                          style={{ maxWidth: 60, maxHeight: 60 }}
+                        />
+                      ) : (
+                        "-"
+                      )}
+                    </td>
                     <td>{new Date(reg.createdAt).toLocaleString()}</td>
                     <td>
                       <Button
@@ -183,7 +179,7 @@ const RegistrationsView = () => {
               </Button>{" "}
               <Button
                 size="sm"
-                disabled={currentPage === totalPages}
+                disabled={currentPage === totalPages || totalPages === 0}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
               >
                 Next
