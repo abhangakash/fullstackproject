@@ -2,16 +2,16 @@ const nodemailer = require("nodemailer");
 const EmailLog = require("../models/EmailLog");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.zoho.in",    // Zoho SMTP server
-  port: 465,               // SSL port
-  secure: true,            // true for 465 port
+  host: "smtp.zoho.in",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,  // Use Zoho app password if 2FA enabled
+    pass: process.env.EMAIL_PASS,
   },
 });
 
-async function sendEmail(to, subject, html) {
+async function sendEmail(to, subject, html, attachments = []) {
   try {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error("Missing email credentials. Check .env configuration.");
@@ -22,6 +22,7 @@ async function sendEmail(to, subject, html) {
       to,
       subject,
       html,
+      attachments,
     });
 
     console.log("✅ Email sent:", info.messageId);
