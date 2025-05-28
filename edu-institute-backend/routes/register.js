@@ -238,5 +238,31 @@ router.post("/", upload.single("profilePic"), async (req, res) => {
     res.status(500).json({ message: "Server error during registration." });
   }
 });
+// GET: Fetch all students or one by ID
+router.get("/", async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.status(200).json(students);
+  } catch (error) {
+    console.error("GET all error:", error.message);
+    res.status(500).json({ message: "Server error while retrieving students." });
+  }
+});
+// DELETE: Delete a student by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedStudent = await Student.findByIdAndDelete(id);
+
+    if (!deletedStudent) {
+      return res.status(404).json({ message: "Student not found." });
+    }
+
+    res.status(200).json({ message: "Student deleted successfully." });
+  } catch (error) {
+    console.error("DELETE error:", error.message);
+    res.status(500).json({ message: "Server error while deleting student." });
+  }
+});
 
 module.exports = router;
